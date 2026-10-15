@@ -81,7 +81,7 @@ class VariableFanOutAdapter(BaseHarmonyAdapter):
                 for index, variable in enumerate(var_list):
                     self.logger.info(f'Creating output catalog for item {item.id}, variable: {variable}')
                     catalog = self.catalog.clone()
-                    catalog.id = f"{self.catalog.id}-{item.id}-var-{index}"
+                    catalog.id = f"{self.catalog.id}-{item.id}-var-{index + 1}"
                     self._set_item_variable(catalog, item, variable, index)
                     catalogs.append(catalog)
 
@@ -103,7 +103,7 @@ class VariableFanOutAdapter(BaseHarmonyAdapter):
         is cloned rather than modified.
         """
         item_clone = item.clone()
-        item_clone.id = f"{item.id}-var-{index}" # ensures a unique item.
+        item_clone.id = f"{item.id}-var-{index + 1}" # ensures a unique item.
         item_clone.properties['harmony:variable'] = variable
         catalog.remove_links(rel='item')
         catalog.add_item(item_clone)

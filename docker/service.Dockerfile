@@ -7,7 +7,7 @@
 # This image installs dependencies via Pip. The service code is then copied
 # into the Docker image.
 ###############################################################################
-FROM python:3.13-slim
+FROM python:3.14-slim
 
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
 
