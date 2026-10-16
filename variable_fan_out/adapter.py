@@ -90,7 +90,7 @@ class VariableFanOutAdapter(BaseHarmonyAdapter):
         except Exception: #noqa: BLE001
             # If you get any errors trying to do the above, return the input
             # message/catalog as a no-op.
-            self.logger.info('Exception during fan out catalog processing: returning intput catalog.')
+            self.logger.exception('Exception during fan out catalog processing: returning input catalog.')
 
         return (self.message, self.catalog)
 
