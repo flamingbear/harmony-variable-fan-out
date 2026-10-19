@@ -39,6 +39,10 @@ class VariableFanOutAdapter(BaseHarmonyAdapter):
         For every item and every variable it writes a catalog containing a the
         variable's name added to the item's properties as ``harmony:variable``.
 
+        An Item whose data file returns no variables gets a catalog holding
+        just a clone of the item, so the downstream service sees the item and
+        fails (net2cog will also find no variables in the file).
+
         Harmony will then call the downstream service, net2cog, with each of
         the catalogs in parallel fanning out to num-of-variables pods per item.
 
@@ -78,17 +82,30 @@ class VariableFanOutAdapter(BaseHarmonyAdapter):
                     ) as input_datatree:
                         var_list = get_all_data_variables(input_datatree, self.logger)
 
-                for index, variable in enumerate(var_list):
+                # If we don't discover any variables, we add this Item alone to
+                # a catalog, for the unlikely case of multiple items, we don't
+                # want to just pass on the original catalog in case we can
+                # still process the second item. (rather than just returning
+                # the input catalog)
+                if not var_list:
+                    self.logger.info(f'No variables found for item {item.id}; passing it through unchanged')
+                    catalog = self.catalog.clone()
+                    catalog.id = f"{self.catalog.id}-{item.id}"
+                    catalog.remove_links(rel='item')
+                    catalog.add_item(item.clone())
+                    catalogs.append(catalog)
+
+                for index, variable in enumerate(var_list, start=1):
                     self.logger.info(f'Creating output catalog for item {item.id}, variable: {variable}')
                     catalog = self.catalog.clone()
-                    catalog.id = f"{self.catalog.id}-{item.id}-var-{index + 1}"
+                    catalog.id = f"{self.catalog.id}-{item.id}-var-{index}"
                     self._set_item_variable(catalog, item, variable, index)
                     catalogs.append(catalog)
 
             self.logger.info(f'VariableFanOutAdapter.invoke returning {len(catalogs)} catalogs')
             return (self.message, catalogs)
-        except Exception: #noqa: BLE001
-            # If you get any errors trying to do the above, return the input
+        except Exception:
+            # If you get any errors trying process the catalog, just the input
             # message/catalog as a no-op.
             self.logger.exception('Exception during fan out catalog processing: returning input catalog.')
 
@@ -103,7 +120,7 @@ class VariableFanOutAdapter(BaseHarmonyAdapter):
         is cloned rather than modified.
         """
         item_clone = item.clone()
-        item_clone.id = f"{item.id}-var-{index + 1}" # ensures a unique item.
+        item_clone.id = f"{item.id}-var-{index}" # ensures a unique item.
         item_clone.properties['harmony:variable'] = variable
         catalog.remove_links(rel='item')
         catalog.add_item(item_clone)

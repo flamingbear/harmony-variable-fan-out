@@ -16,8 +16,8 @@ net2cog = { git = "https://github.com/podaac/net2cog", tag = "1.4.0" }
 
 [dependency-groups]
 dev = [
-    "coverage>=7.16.2",
     "pytest>=9.1.1",
+    "pytest-cov>=7.1.0",
 ]
 
 [tool.pytest]
