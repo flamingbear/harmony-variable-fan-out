@@ -16,6 +16,7 @@ net2cog = { git = "https://github.com/podaac/net2cog", tag = "1.4.0" }
 
 [dependency-groups]
 dev = [
+    "pre-commit>=4.7.0",
     "pytest>=9.1.1",
     "pytest-cov>=7.1.0",
 ]

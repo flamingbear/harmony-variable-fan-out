@@ -1,6 +1,7 @@
 """
 Entrypoint for variable_fan_out service.
 """
+
 import argparse
 
 import harmony_service_lib
@@ -16,10 +17,11 @@ def main():
     None
     """
     parser = argparse.ArgumentParser(
-        prog='variable_fan_out', description='Run the variable fan out service')
+        prog="variable_fan_out", description="Run the variable fan out service"
+    )
     harmony_service_lib.setup_cli(parser)
     args = parser.parse_args()
-    if (harmony_service_lib.is_harmony_cli(args)):
+    if harmony_service_lib.is_harmony_cli(args):
         harmony_service_lib.run_cli(parser, args, VariableFanOutAdapter)
     else:
         parser.error("Only --harmony CLIs are supported")
