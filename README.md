@@ -2,25 +2,32 @@
 
 This repository contains code for the variable-fan-out-service.
 
-This service takes a single request for `all` variables, and transforms it into N requests, each for a single variable, fanning it out into a parallelizable set of requests for a single variable.
+This service fans out request to net2cog. It takes a request for `all` variables, and transforms it into N requests, each for a single variable, letting harmony fan it out into N parallel requests.
 
-The high-level overview of how the service works:
+The basic idea for a request for all variables headed to net2cog is that the STAC Catalog's Item data asset is downloaded and net2cog's `get_all_data_variables` function is used to determine a list of variables that net2cog can process.  For every variable found, the input catalog is cloned and the Item updated with a new property `harmony:variable` whose value is the variable name.  This list of catalogs is returned to harmony, which treats them as a batch catalog and submits them to net2cog downstream.  Net2cog has been updated to look for this new `harmony:variable` property and only process the single variable found there.
 
-- Read the incoming STAC Catalog
-TODO [MHS, 10/20/2026] update with other cases:
-  - The request already lists variables.  - Something errors.  - An item has no variables.
-- Discover all variables
-- For each variable:
-  - Clone the catalog
-  - Add the variable to a custom property in the catalog's Item so a downstream service can find it.
-- Return this list of amended catalogs to harmony.
-- Harmony submits all of the catalogs to the next service in parallel.
+The details are a little grittier to handle multiple Items in a Catlog and mixed catalogs with Items that have variables and items that don't. Those details are shown here (or in the code).
+```mermaid
+flowchart TD
+    A[Input STAC catalog] --> B{Source already lists variables?}
+    B -- yes --> P[Return input catalog unchanged]
+    B -- no --> C[For each item: download its data asset, discover variables]
+    C --> D{Item has variables?}
+    D -- yes --> E[One catalog per variable, each holding a cloned item with harmony:variable set]
+    D -- no --> F[One catalog holding an unchanged clone of the item]
+    E --> G[Return list of catalogs to Harmony]
+    F --> G
+    G --> H[Harmony runs one net2cog job per catalog]
+    C -. any error .-> P
+```
 
 ## Contributing
 
 Contributions are welcome! For more information, see `CONTRIBUTING.md`.
 
 ## Commandline invocation
+
+
 
 
 ## Local development
