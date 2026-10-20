@@ -23,4 +23,4 @@ mkdir -p reports/coverage
 docker run  --rm \
 	-v $(pwd)/reports/test-reports:/home/reports/test-reports \
 	-v $(pwd)/reports/coverage:/home/reports/coverage \
-	ghcr.io/nasa/variable-fan-out-test "$@"
+	ghcr.io/nasa/variable-fan-out-test
