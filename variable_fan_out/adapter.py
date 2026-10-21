@@ -20,9 +20,6 @@ class VariableFanOutAdapter(BaseHarmonyAdapter):
     for documentation and examples.
     """
 
-    def __init__(self, message, catalog=None, config=None):
-        super().__init__(message, catalog, config)
-
     def invoke(self) -> tuple[Message, Catalog | list[Catalog]]:
         """Writes a catalog per (item, variable) when no explicit vars are requested.
 
