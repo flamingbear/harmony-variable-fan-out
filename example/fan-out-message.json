@@ -26,7 +26,7 @@
   "requestId": "1ee42275-7b6d-4f18-ab86-07efdfce03c9",
   "user": "unused-user",
   "client": "harmony-local",
-  "accessToken": "SET_FROM_UAT_TOKEN_ENV_VAR",
+  "accessToken": "SET_FROM_UAT_BEARER_ENV_VAR",
   "stagingLocation": "/tmp",
   "version": "0.22.0"
 }
