@@ -10,6 +10,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Initial codebase that implements Harmony's Fan Out Service container, tests, docker builds and CI/CD.
+- Initial codebase that implements Harmony's Fan Out Service container, tests, docker builds, and CI/CD.
 
 [v0.0.1]: https://github.com/nasa/harmony-variable-fan-out/releases/tag/0.0.1
