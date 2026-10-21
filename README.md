@@ -26,9 +26,9 @@ flowchart TD
 
 Contributions are welcome! For more information, see `CONTRIBUTING.md`.
 
-## Commandline invocation
+## Command line invocation
 
-
+For examples on how to run from the command line, see the `README.md` in the `example` directory.
 
 
 ## Local development
