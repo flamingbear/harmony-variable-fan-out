@@ -28,12 +28,12 @@ class VariableFanOutAdapter(BaseHarmonyAdapter):
         defined variables in the message's source and if so, passes the message
         along as a no-op to the next service in the chain [net2cog].
 
-        If the incoming messsage has not explicitly asked for variables from
+        If the incoming message has not explicitly asked for variables from
         the file, this routine downloads each Item's data asset and generates
         its list of variables using net2cogs get_all_data_variables routine
         directly.  [Generally (always?) there will be one Item per Catalog.]
 
-        For every item and every variable it writes a catalog containing a the
+        For every item and every variable it writes a catalog containing the
         variable's name added to the item's properties as ``harmony:variable``.
 
         An Item whose data file returns no variables gets a catalog holding
@@ -47,7 +47,7 @@ class VariableFanOutAdapter(BaseHarmonyAdapter):
         message and catalog are returned to Harmony.
 
         Returns a tuple of the input Message and either the input Catalog (on
-        error or excplict variables requested), or a list of catalogs, one per
+        error or explicit variables requested), or a list of catalogs, one per
         item/variable pair, each containing a single item from the input
         catalog amended with one of its variables.
 
