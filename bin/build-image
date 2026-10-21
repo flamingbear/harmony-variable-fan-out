@@ -6,6 +6,8 @@
 # 2026-10-07: copied from HOSS.
 ###############################################################################
 
+set -e
+
 image="ghcr.io/nasa/variable-fan-out"
 
 # Retrieve the tag from the script arguments, or default to "latest". Bamboo
@@ -14,13 +16,12 @@ image="ghcr.io/nasa/variable-fan-out"
 #
 tag=${1:-latest}
 
-
-# Remove old versions of service and test images:
-bin/clean-images
-
 # Build the image
 # This command tags the image with two tags:
 # - The one supplied as a script argument.
 # - "latest", so the test Dockerfile can use the service image as a base image.
 
 docker build -t ${image}:${tag} -t ${image}:latest -f docker/service.Dockerfile .
+
+# Remove this project's images left untagged by a rebuild.
+docker image prune -f --filter label=project=variable-fan-out

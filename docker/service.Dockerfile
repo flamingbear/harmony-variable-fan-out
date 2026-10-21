@@ -9,6 +9,8 @@
 ###############################################################################
 FROM python:3.14-slim
 
+LABEL project="variable-fan-out"
+
 COPY --from=ghcr.io/astral-sh/uv:0.13.1 /uv /bin/uv
 
 RUN apt-get update \
