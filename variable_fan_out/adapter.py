@@ -1,6 +1,7 @@
 # Service to fan out all variables in a file
 from __future__ import annotations
 
+import os
 from tempfile import TemporaryDirectory
 from typing import TYPE_CHECKING
 
@@ -46,6 +47,11 @@ class VariableFanOutAdapter(BaseHarmonyAdapter):
         Any errors raised are caught, logged, and then the original input
         message and catalog are returned to Harmony.
 
+        If the environment variable ``VARIABLE_FAN_OUT_DISABLED`` is ``true``
+        the input message and catalog are returned unchanged.  Harmony's
+        local Harmony-In-A-Box defaults it to ``true`` so the fan out is
+        skipped locally without changing the chain..
+
         Returns a tuple of the input Message and either the input Catalog (on
         error or explicit variables requested), or a list of catalogs, one per
         item/variable pair, each containing a single item from the input
@@ -56,6 +62,12 @@ class VariableFanOutAdapter(BaseHarmonyAdapter):
             raise RuntimeError(
                 "The variable fan out service requires an input STAC catalog."
             )
+
+        if os.environ.get("VARIABLE_FAN_OUT_DISABLED", "").lower() == "true":
+            self.logger.info(
+                "VARIABLE_FAN_OUT_DISABLED is true; exiting without creating fan out catalogs"
+            )
+            return (self.message, self.catalog)
 
         try:
             if any(source.variables for source in self.message.sources):

@@ -35,6 +35,8 @@ For examples on how to run from the command line, see the `README.md` in the `ex
 
 Local testing of service functionality is best achieved via a local instance of [Harmony](https://github.com/nasa/harmony). Please see instructions there regarding creation of a local Harmony-In-A-Box instance.
 
+Locally, the fan out is off by default. Harmony's `services/harmony/env-defaults` sets `VARIABLE_FAN_OUT_DISABLED=true`, so the service passes every request through unchanged. The fan out would make local runs slower, because each downstream net2cog job downloads the granule again. To use the fan out locally, as deployed environments do, add `VARIABLE_FAN_OUT_DISABLED=false` to Harmony's `.env` and rerun `bin/deploy-services`. Harmony gives the service container every env var whose name starts with `VARIABLE_FAN_OUT`. If the variable is unset, the service fans out.
+
 If testing small functions locally that do not require inputs from the main Harmony application, it is recommended that you create a Python virtual environment via uv, and install the necessary dependencies for the service within that environment.
 
 ```bash
