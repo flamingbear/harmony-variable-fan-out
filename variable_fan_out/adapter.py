@@ -44,8 +44,8 @@ class VariableFanOutAdapter(BaseHarmonyAdapter):
 
         If the environment variable ``VARIABLE_FAN_OUT_ENABLED`` is ``false``
         the input message and catalog are returned unchanged.  Harmony's
-        local Harmony-In-A-Box defaults it to ``true`` so the fan out is
-        skipped locally without changing the chain..
+        local Harmony-In-A-Box defaults to ``false`` so the fan out is
+        skipped locally without fanning out and repeating downloads.
 
         Returns a tuple of the input Message and either the input Catalog (on
         error or explicit variables requested), or a list of catalogs, one per
