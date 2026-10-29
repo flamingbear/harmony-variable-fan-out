@@ -47,7 +47,7 @@ class VariableFanOutAdapter(BaseHarmonyAdapter):
         Any errors raised are caught, logged, and then the original input
         message and catalog are returned to Harmony.
 
-        If the environment variable ``VARIABLE_FAN_OUT_DISABLED`` is ``true``
+        If the environment variable ``VARIABLE_FAN_OUT_ENABLED`` is ``false``
         the input message and catalog are returned unchanged.  Harmony's
         local Harmony-In-A-Box defaults it to ``true`` so the fan out is
         skipped locally without changing the chain..
@@ -63,9 +63,9 @@ class VariableFanOutAdapter(BaseHarmonyAdapter):
                 "The variable fan out service requires an input STAC catalog."
             )
 
-        if os.environ.get("VARIABLE_FAN_OUT_DISABLED", "").lower() == "true":
+        if os.environ.get("VARIABLE_FAN_OUT_ENABLED", "true").lower() == "false":
             self.logger.info(
-                "VARIABLE_FAN_OUT_DISABLED is true; exiting without creating fan out catalogs"
+                "VARIABLE_FAN_OUT_ENABLED is false; exiting without creating fan out catalogs"
             )
             return (self.message, self.catalog)
 

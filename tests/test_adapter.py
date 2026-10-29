@@ -95,7 +95,7 @@ def test_explicit_variables_return_input_catalog():
 
 
 def test_disabled_env_returns_input_catalog(monkeypatch):
-    monkeypatch.setenv("VARIABLE_FAN_OUT_DISABLED", "true")
+    monkeypatch.setenv("VARIABLE_FAN_OUT_ENABLED", "false")
     catalog = make_catalog(["granule"])
 
     with patch("variable_fan_out.adapter.download") as download:
