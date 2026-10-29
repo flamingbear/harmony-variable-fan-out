@@ -49,10 +49,10 @@ uv run pytest
 This service utilizes the Python `pytest` package to perform unit tests on classes and functions in the service. After local development is complete, and tests have been updated, they can be run via:
 
 ```bash
-$ ./bin/build-image
-$ ./bin/build-test
-$ ./bin/run-test
+$ ./bin/build-image && ./bin/build-test && ./bin/run-test
 ```
+
+Chain the commands with `&&` so that a failed build stops the sequence.
 
 The `./bin/run-test` command runs the script `tests/run_tests.sh` in the docker test container. It will run the unit tests and generate a coverage report rendered in HTML and place them in `reports/test-reports/` and `reports/coverage/`.
 
