@@ -8,16 +8,7 @@
 #
 ###############################################################################
 
-STATUS=0
-
 pytest --cov=variable_fan_out \
        --cov-report=html:reports/coverage \
        --cov-report term \
-       --junitxml=reports/test-reports/test-results.xml \
-       || STATUS=1
-
-if [ "$STATUS" -ne "0" ]; then
-    echo "ERROR: tests generated errors"
-fi
-
-exit $STATUS
+       --junitxml=reports/test-reports/test-results.xml
