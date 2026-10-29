@@ -1,18 +1,13 @@
 # Service to fan out all variables in a file
-from __future__ import annotations
-
 import os
 from tempfile import TemporaryDirectory
-from typing import TYPE_CHECKING
 
 import xarray as xr
 from harmony_service_lib import BaseHarmonyAdapter
+from harmony_service_lib.message import Message
 from harmony_service_lib.util import download
 from net2cog.netcdf_convert import get_all_data_variables
 from pystac import Catalog, Item
-
-if TYPE_CHECKING:
-    from harmony_service_lib.message import Message
 
 
 class VariableFanOutAdapter(BaseHarmonyAdapter):
