@@ -13,8 +13,10 @@ LABEL project="variable-fan-out"
 
 COPY --from=ghcr.io/astral-sh/uv:0.13.1 /uv /bin/uv
 
+# rasterio's bundled GDAL (pulled in by net2cog) links against libexpat, which
+# the slim base image does not include.
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends git \
+    && apt-get install -y --no-install-recommends libexpat1 \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR "/home"
