@@ -1,7 +1,7 @@
 #!/bin/bash
 ###############################################################################
 #
-# Execute the ghcr.io/nasa/variable-fan-out-test Docker image
+# Execute the ghcr.io/nasa/harmony-variable-fan-out-test Docker image
 #
 # Runs the tests in docker.
 #
@@ -23,4 +23,4 @@ mkdir -p reports/coverage
 docker run  --rm \
 	-v $(pwd)/reports/test-reports:/home/reports/test-reports \
 	-v $(pwd)/reports/coverage:/home/reports/coverage \
-	ghcr.io/nasa/variable-fan-out-test
+	ghcr.io/nasa/harmony-variable-fan-out-test

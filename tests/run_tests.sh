@@ -1,8 +1,8 @@
 #!/bin/sh
 ###############################################################################
 #
-# Run the variable-fan-out test suite with coverage. Invoked as the
-# entrypoint of the ghcr.io/nasa/variable-fan-out-test image; XML test
+# Run the harmony-variable-fan-out test suite with coverage. Invoked as the
+# entrypoint of the ghcr.io/nasa/harmony-variable-fan-out-test image; XML test
 # results and coverage reports are written to /home/reports, which
 # bin/run-test mounts from the host.
 #

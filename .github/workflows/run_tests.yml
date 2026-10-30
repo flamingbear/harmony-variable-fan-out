@@ -1,5 +1,5 @@
 # This workflow will build the service and test Docker images for
-# variable-fan-out, then run the Python `pytest` suite within a test Docker
+# harmony-variable-fan-out, then run the Python `pytest` suite within a test Docker
 # container, reporting test results and code coverage as artefacts. It will be
 # called by the workflow that run tests against new PRs and as a first step in
 # the workflow that publishes new Docker images.

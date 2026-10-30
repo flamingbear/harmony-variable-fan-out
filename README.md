@@ -1,6 +1,6 @@
-# variable-fan-out service
+# Harmony Variable Fan Out Service
 
-This repository contains code for the variable-fan-out-service.
+This repository contains code for the harmony-variable-fan-out-service.
 
 This service fans out request to net2cog. It takes a request for `all` variables, and transforms it into N requests, each for a single variable, letting harmony fan it out into N parallel requests.
 
@@ -35,7 +35,7 @@ For examples on how to run from the command line, see the `README.md` in the `ex
 
 Local testing of service functionality is best achieved via a local instance of [Harmony](https://github.com/nasa/harmony). Please see instructions there regarding creation of a local Harmony-In-A-Box instance.
 
-Locally, running Harmony-In-A-Box, the fan out is off by default. Harmony's `services/harmony/env-defaults` sets `VARIABLE_FAN_OUT_ENABLED=false`, so the service passes every request through unchanged. The fan out would make local runs slower, because each downstream net2cog job downloads the granule again. To use the fan out locally, as deployed environments do, add `VARIABLE_FAN_OUT_ENABLED=true` to Harmony's `.env` and rerun `bin/deploy-services`. Harmony gives the service container every env var whose name starts with `VARIABLE_FAN_OUT`. If the variable is unset, the service fans out.
+Locally, running Harmony-In-A-Box, the fan out is off by default. Harmony's `services/harmony/env-defaults` sets `HARMONY_VARIABLE_FAN_OUT_ENABLED=false`, so the service passes every request through unchanged. The fan out would make local runs slower, because each downstream net2cog job downloads the granule again. To use the fan out locally, as deployed environments do, add `HARMONY_VARIABLE_FAN_OUT_ENABLED=true` to Harmony's `.env` and rerun `bin/deploy-services`. Harmony gives the service container every env var whose name starts with `HARMONY_VARIABLE_FAN_OUT`. If the variable is unset, the service fans out.
 
 If testing small functions locally that do not require inputs from the main Harmony application, it is recommended that you create a Python virtual environment via uv, and install the necessary dependencies for the service within that environment.
 
@@ -80,7 +80,7 @@ uv run pre-commit install
 
 ## Versioning
 
-Docker service images for the `variable-fan-out` service adhere to [semantic version](https://semver.org/) numbers: major.minor.patch.
+Docker service images for the `harmony-variable-fan-out` service adhere to [semantic version](https://semver.org/) numbers: major.minor.patch.
 
 * Major increments: These are non-backwards compatible API changes.
 * Minor increments: These are backwards compatible API changes.
@@ -88,7 +88,7 @@ Docker service images for the `variable-fan-out` service adhere to [semantic ver
 
 ## CI/CD
 
-The CI/CD for Variable-fan-out Service is run on github actions with the workflows in the `.github/workflows` directory:
+The CI/CD for Harmony-variable-fan-out Service is run on github actions with the workflows in the `.github/workflows` directory:
 
 * `run_tests.yml` - A reusable workflow that builds the service and test Docker images, then runs the Python unit test suite in an instance of the test Docker container.
 * `run_tests_on_pull_requests.yml` - Triggered for all PRs against the `main` branch. It runs the workflow in `run_tests.yml` to ensure all tests pass for the new code.
@@ -101,7 +101,7 @@ The CI/CD for Variable-fan-out Service is run on github actions with the workflo
 
 ## Releasing
 
-A release consists of a new Docker image for the Variable-Fan-Out Service published to GitHub's container repository (`ghcr.io/nasa/variable-fan-out`).
+A release consists of a new Docker image for the Harmony-variable-Fan-Out Service published to GitHub's container repository (`ghcr.io/nasa/harmony-variable-fan-out`).
 
 A release is made automatically when a commit to the `main` branch contains changes to the `docker/service_version.txt` file, see the [publish_release](#release-workflow) workflow in the CI/CD section above.
 

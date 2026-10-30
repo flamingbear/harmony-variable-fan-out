@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Service image for ghcr.io/nasa/variable-fan-out, a Harmony backend service
+# Service image for ghcr.io/nasa/harmony-variable-fan-out, a Harmony backend service
 # that fans out a request for all variables to multiple downstream service
 # containers via stac customization
 #
@@ -9,7 +9,7 @@
 ###############################################################################
 FROM python:3.14-slim
 
-LABEL project="variable-fan-out"
+LABEL project="harmony-variable-fan-out"
 
 COPY --from=ghcr.io/astral-sh/uv:0.13.1 /uv /bin/uv
 

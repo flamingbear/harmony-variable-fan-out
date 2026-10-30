@@ -133,7 +133,7 @@ def test_disabled_env_returns_input_catalog(monkeypatch):
     Same test as test_fans_out_one_catalog_per_variable with environmental
     override.
     """
-    monkeypatch.setenv("VARIABLE_FAN_OUT_ENABLED", "false")
+    monkeypatch.setenv("HARMONY_VARIABLE_FAN_OUT_ENABLED", "false")
     catalog = make_catalog(["granule"])
     harmony_message_with_no_variables = make_harmony_message()
 

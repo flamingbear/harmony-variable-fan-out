@@ -14,6 +14,6 @@ A short description of the changes in this PR.
 * [ ] `CHANGELOG.md` updated to include high level summary of PR changes.
 * [ ] `CHANGELOG.md` footer updated with link to target release.
 * [ ] `docker/service_version.txt` updated if publishing a release.
-* [ ] Fix version added to ticket - variable-fan-out-X.Y.Z.
+* [ ] Fix version added to ticket - harmony-variable-fan-out-X.Y.Z.
 * [ ] Tests added/updated and passing.
 * [ ] Documentation updated (if needed).

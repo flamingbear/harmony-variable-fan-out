@@ -19,7 +19,7 @@ class VariableFanOutAdapter(BaseHarmonyAdapter):
     def invoke(self) -> tuple[Message, Catalog | list[Catalog]]:
         """Writes a catalog per (item, variable) when no explicit vars are requested.
 
-        The variable fan out service processes the incoming
+        The harmony variable fan out service processes the incoming
         ``Harmony.message``.  It checks to see if there are any explicitly
         defined variables in the message's source and if so, passes the message
         along as a no-op to the next service in the chain [net2cog].
@@ -42,7 +42,7 @@ class VariableFanOutAdapter(BaseHarmonyAdapter):
         Any errors raised are caught, logged, and then the original input
         message and catalog are returned to Harmony.
 
-        If the environment variable ``VARIABLE_FAN_OUT_ENABLED`` is ``false``
+        If the environment variable ``HARMONY_VARIABLE_FAN_OUT_ENABLED`` is ``false``
         the input message and catalog are returned unchanged.  Harmony's
         local Harmony-In-A-Box defaults to ``false`` so the fan out is
         skipped locally without fanning out and repeating downloads.
@@ -55,12 +55,15 @@ class VariableFanOutAdapter(BaseHarmonyAdapter):
         """
         if not self.catalog:
             raise RuntimeError(
-                "The variable fan out service requires an input STAC catalog."
+                "The harmony variable fan out service requires an input STAC catalog."
             )
 
-        if os.environ.get("VARIABLE_FAN_OUT_ENABLED", "true").lower() == "false":
+        if (
+            os.environ.get("HARMONY_VARIABLE_FAN_OUT_ENABLED", "true").lower()
+            == "false"
+        ):
             self.logger.info(
-                "VARIABLE_FAN_OUT_ENABLED is false; exiting without creating fan out catalogs"
+                "HARMONY_VARIABLE_FAN_OUT_ENABLED is false; exiting without creating fan out catalogs"
             )
             return (self.message, self.catalog)
 

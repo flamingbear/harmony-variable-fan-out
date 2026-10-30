@@ -5,8 +5,8 @@
 # which runs the `pytest` suite. If that workflow is successful, the latest
 # version of the service Docker image is pushed to ghcr.io, a tag is added to
 # the latest git commit, and a GitHub release is created with the release notes
-# from the latest version of variable-fan-out.
-name: Publish variable-fan-out Docker image
+# from the latest version of harmony-variable-fan-out.
+name: Publish harmony-variable-fan-out Docker image
 
 on:
   push:
@@ -15,7 +15,7 @@ on:
   workflow_dispatch:
 
 env:
-  IMAGE_NAME: ${{ github.repository_owner }}/variable-fan-out
+  IMAGE_NAME: ${{ github.repository }}
   REGISTRY: ghcr.io
 
 jobs:
