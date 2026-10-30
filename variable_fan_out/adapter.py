@@ -95,6 +95,13 @@ class VariableFanOutAdapter(BaseHarmonyAdapter):
                         decode_timedelta=False,
                         concat_characters=True,
                     ) as input_datatree:
+                        # use net2cogs function directly to get a list of
+                        # variables that can be processed by net2cog. which is
+                        # described as A list of paths to all variables in the
+                        # `data_vars` property of any node in the
+                        # DataTree. These variables are filtered to remove any
+                        # variables that are 1-D, attribute-only (e.g., CRS
+                        # definitions), dtype = string(S1/S2), or variable without dimensions.
                         var_list = get_all_data_variables(input_datatree, self.logger)
 
                 # If we don't discover any variables, we add this Item alone to
